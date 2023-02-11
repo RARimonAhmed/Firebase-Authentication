@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sign_in_and_up_firebase/views/home_page.dart';
 
 class SignInAndLoginUI extends StatefulWidget {
   final String hText, btnText, richText1, richText2;
+
   final Function? onpressed1, onpressed2;
   const SignInAndLoginUI({
     super.key,
@@ -20,21 +22,51 @@ class SignInAndLoginUI extends StatefulWidget {
 }
 
 class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
+  dynamic firebaseUser;
+  dynamic snackBar;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   Future register() async {
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
-      final firebaseUser = await firebaseAuth.createUserWithEmailAndPassword(
+      firebaseUser = await firebaseAuth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        snackBar = const SnackBar(content: Text('Password is weak'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        snackBar = const SnackBar(content: Text('Email is already used'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
-      print(e);
+      snackBar = const SnackBar(
+          content: Text('Check internet connection\n or something is wrong'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  Future login() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    try {
+      firebaseUser = await firebaseAuth.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'internet-connection') {
+        snackBar =
+            const SnackBar(content: Text('You have no internet connection'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else if (e.code == 'email-is-not-correct') {
+        snackBar = const SnackBar(content: Text('Your email is not correct'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        snackBar = SnackBar(content: Text(e.message.toString()));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } catch (e) {
+      snackBar = const SnackBar(
+          content: Text('Check internet connection\nor something is wrong\n'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
@@ -85,12 +117,17 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
           ),
           ElevatedButton(
             onPressed: (() {
-              register();
-
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => widget.onpressed1!())));
+              if (widget.hText == 'Registration') {
+                register();
+              } else if (widget.hText == "Login") {
+                login();
+              }
+              if (firebaseUser != null) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => widget.onpressed1!())));
+              }
             }),
             child: Text(
               widget.btnText,

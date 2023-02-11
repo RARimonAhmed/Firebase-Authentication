@@ -19,10 +19,10 @@ class _RegistrationState extends State<Registration> {
         child: SignInAndLoginUI(
           btnText: 'Sign Up',
           hText: 'Registration',
-          onpressed1: () => const HomePage(),
+          onpressed1: () => HomePage(),
           onpressed2: () => const SignIn(),
           richText1: 'Don\'t have an account',
-          richText2: 'Sign Up',
+          richText2: 'Sign In',
         ),
       ),
     );

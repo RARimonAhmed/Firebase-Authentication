@@ -19,10 +19,10 @@ class _SignInState extends State<SignIn> {
         child: SignInAndLoginUI(
           btnText: 'Sign In',
           hText: 'Login',
-          onpressed1: () => const HomePage(),
+          onpressed1: () => HomePage(),
           onpressed2: () => const Registration(),
           richText1: 'Already register',
-          richText2: 'Login',
+          richText2: 'Sign Up',
         ),
       ),
     );

@@ -1,24 +1,37 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_and_up_firebase/views/sign_in.dart';
-import 'package:sign_in_and_up_firebase/widgets/sign_in_and_up_ui.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePage extends StatelessWidget {
+  HomePage({
+    super.key,
+  });
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
+  dynamic snackBar;
 
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    signOut(FirebaseAuth? firebaseAuthUser) async {
+      await firebaseAuthUser!.currentUser!.delete();
+    }
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Text(firebaseAuthUser!.currentUser!.email.toString()),
+            SizedBox(
+              height: 10,
+            ),
             ElevatedButton(
-              onPressed: (() {}),
+              onPressed: (() {
+                signOut();
+                snackBar =
+                    const SnackBar(content: Text('Sign out successfully'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }),
               child: const Text(
                 'Sign Out',
                 style: TextStyle(
