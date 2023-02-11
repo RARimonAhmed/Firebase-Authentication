@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sign_in_and_up_firebase/views/home_page.dart';
+import 'package:sign_in_and_up_firebase/views/sign_up.dart';
+import 'package:sign_in_and_up_firebase/views/testpage.dart';
 
 class SignInAndLoginUI extends StatefulWidget {
   final String hText, btnText, richText1, richText2;
-
   final Function? onpressed1, onpressed2;
   const SignInAndLoginUI({
     super.key,
@@ -22,12 +22,12 @@ class SignInAndLoginUI extends StatefulWidget {
 }
 
 class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   dynamic firebaseUser;
   dynamic snackBar;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   Future register() async {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       firebaseUser = await firebaseAuth.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
@@ -47,7 +47,6 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
   }
 
   Future login() async {
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       firebaseUser = await firebaseAuth.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
@@ -68,6 +67,7 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
           content: Text('Check internet connection\nor something is wrong\n'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    setData(firebaseUser);
   }
 
   final formKey = GlobalKey<FormState>();
@@ -145,21 +145,23 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
                 style: const TextStyle(color: Colors.black45, fontSize: 18),
                 children: <TextSpan>[
                   TextSpan(
-                      text: ' ${widget.richText2}',
-                      style: const TextStyle(
-                          color: Colors.blueAccent, fontSize: 22),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: ((context) =>
-                                      widget.onpressed2!())));
-                        })
+                    text: ' ${widget.richText2}',
+                    style:
+                        const TextStyle(color: Colors.blueAccent, fontSize: 22),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => widget.onpressed2!())));
+                      },
+                  ),
                 ],
               ),
             ),
           ),
+          //Sign out page
+          // TestWidget(firebaseAuth: firebaseAuth),
         ],
       ),
     );
