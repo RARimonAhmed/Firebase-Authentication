@@ -14,13 +14,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SignInAndLoginUI(
-          btnText: 'Sign Up',
-          hText: 'Registration',
-          onpressed1: () => const SignIn(),
-          onpressed2: () => const SignIn(),
-          richText1: 'Don\'t have an account',
-          richText2: 'Sign Up',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: (() {}),
+              child: const Text(
+                'Sign Out',
+                style: TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

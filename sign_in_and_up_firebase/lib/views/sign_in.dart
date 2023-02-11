@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sign_in_and_up_firebase/views/home_page.dart';
+import 'package:sign_in_and_up_firebase/views/sign_up.dart';
 import 'package:sign_in_and_up_firebase/widgets/sign_in_and_up_ui.dart';
 
 class SignIn extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SignInState extends State<SignIn> {
           btnText: 'Sign In',
           hText: 'Login',
           onpressed1: () => const HomePage(),
-          onpressed2: () => const HomePage(),
+          onpressed2: () => const Registration(),
           richText1: 'Already register',
           richText2: 'Login',
         ),

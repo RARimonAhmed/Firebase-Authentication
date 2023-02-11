@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sign_in_and_up_firebase">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="sign_in_and_up_firebase"
         android:name="${applicationName}"
