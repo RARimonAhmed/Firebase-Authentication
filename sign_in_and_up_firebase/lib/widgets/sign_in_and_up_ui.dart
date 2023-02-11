@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,24 @@ class SignInAndLoginUI extends StatefulWidget {
 }
 
 class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  Future register() async {
+    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    try {
+      final firebaseUser = await firebaseAuth.createUserWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -41,6 +60,7 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                    controller: emailController,
                     decoration: const InputDecoration(
                       icon: Icon(
                         Icons.email,
@@ -50,6 +70,7 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
                     ),
                   ),
                   TextFormField(
+                    controller: passwordController,
                     decoration: const InputDecoration(
                       icon: Icon(Icons.remove_red_eye),
                       hintText: 'Enter a password',
@@ -64,6 +85,8 @@ class _SignInAndLoginUIState extends State<SignInAndLoginUI> {
           ),
           ElevatedButton(
             onPressed: (() {
+              register();
+
               Navigator.push(
                   context,
                   MaterialPageRoute(

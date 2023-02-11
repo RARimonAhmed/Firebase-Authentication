@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "143332454917",
+    "project_id": "fir-sign-in-and-up-bab6d",
+    "storage_bucket": "fir-sign-in-and-up-bab6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143332454917:android:1f7f716148cb6a7120626c",
+        "android_client_info": {
+          "package_name": "com.example.sign_in_and_up_firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143332454917-asdjahnotsj9uhues4jk3mb56euncoob.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sign_in_and_up_firebase",
+            "certificate_hash": "c719ecb8f78725dc5721ba1c90761dd91b03e1c7"
+          }
+        },
+        {
+          "client_id": "143332454917-a9bt60fvi8nqakih9gmec4snh9sj4ajq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT5Ag9IuGjarCqoWujkvWSy7oVbotaKQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143332454917-a9bt60fvi8nqakih9gmec4snh9sj4ajq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
